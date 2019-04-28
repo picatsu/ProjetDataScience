@@ -4,8 +4,6 @@ Created on Sun Apr 28
 
 @author: Zylv1
 
-Test du KNN pour les mails, donc avec les vraies données de Wandrille
-
 Référence super utile pour Naive Bayes :
     https://stackabuse.com/the-naive-bayes-algorithm-in-python-with-scikit-learn/
 
@@ -81,14 +79,15 @@ rangeFirst = [1, 2] # = en python 3,  list(range(1, 3)) #
 predictedRatio = np.mean(y_pred != y_test)
 error = [predictedRatio, predictedRatio]#[3.542, 8.612]
 
-'''error.append(predictedRatio)
+'''error = []
+error.append(predictedRatio)
 error.append(predictedRatio)'''
 
 print(predictedRatio)
 
-plt.figure(figsize=(14, 6))  
-plt.plot(rangeFirst, error, color='red', linestyle='dashed', marker='o',  
+plt.figure(figsize=(14, 6))
+plt.plot(rangeFirst, error, color='red', linestyle='dashed', marker='o',
          markerfacecolor='blue', markersize=10)
-plt.title('Taux d\'erreur pour Naive Bayes')  
-plt.xlabel('Par compatibilité, pour avoir un graphe')  
+plt.title('Taux d\'erreur pour Naive Bayes')
+plt.xlabel('Par compatibilité, pour avoir un graphe')
 plt.ylabel('Erreur moyenne')
