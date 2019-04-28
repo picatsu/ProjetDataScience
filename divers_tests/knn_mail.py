@@ -62,12 +62,12 @@ print(classification_report(y_test, y_pred))
 
 
 minKNumber = 1
-maxKNumber = 20
+maxKNumber = 10
 
 error = []
 
 # Calculating error for K values between minKNumber and maxKNumber
-for i in range(minKNumber, maxKNumber):  
+for i in list(range(minKNumber, maxKNumber)):  
     knn = KNeighborsClassifier(n_neighbors=i)
     knn.fit(X_train, y_train)
     pred_i = knn.predict(X_test)
@@ -76,7 +76,7 @@ for i in range(minKNumber, maxKNumber):
     error.append(meanRatio)
     
 plt.figure(figsize=(14, 6))  
-plt.plot(range(minKNumber, maxKNumber), error, color='red', linestyle='dashed', marker='o',  
+plt.plot(list(range(minKNumber, maxKNumber)), error, color='red', linestyle='dashed', marker='o',  
          markerfacecolor='blue', markersize=10)
 plt.title('Taux d\'erreur en fonction de la valeur de K')  
 plt.xlabel('Valeur de K')  
