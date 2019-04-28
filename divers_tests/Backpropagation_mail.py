@@ -39,11 +39,11 @@ X_train, X_test, y_train, y_test = train_test_split(dataFieldsValues, dataLabels
 #np.set_printoptions(threshold=np.inf)
 #print(X_test)
 
-scaler = StandardScaler()
-scaler.fit(X_train)
+#scaler = StandardScaler()
+#scaler.fit(X_train)
 
-X_train = scaler.transform(X_train)  
-X_test = scaler.transform(X_test)
+#X_train = scaler.transform(X_train)  
+#X_test = scaler.transform(X_test)
 
 
 from sklearn.neural_network import MLPClassifier  

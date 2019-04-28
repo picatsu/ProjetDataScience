@@ -44,3 +44,4 @@ print("############Kernel SVM############")
 """Tsne"""
 print("############Tsne############")
 
+# ajouter SVM - Support Vector Machine
