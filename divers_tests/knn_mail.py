@@ -39,12 +39,12 @@ irisDataset = pd.read_csv(csvFilePath, header = None)  # names=names,
 dataFieldsValues = irisDataset.iloc[:, :-1].values  # : signifie "tout" -> :-1 signifie "toutes les colonnes sauf la dernière"
 dataLabels = irisDataset.iloc[:, csvValuesColumnNumber].values  
 
-X_train, X_test, y_train, y_test = train_test_split(dataFieldsValues, dataLabels, test_size=0.12, shuffle=True) # test_size = 1 - train_size
+X_train, X_test, y_train, y_test = train_test_split(dataFieldsValues, dataLabels, test_size=0.2, shuffle=True) # test_size = 1 - train_size
 
 #print(dataFieldsValues)
 #print(X_train)
 
-scaler = StandardScaler()  
+scaler = StandardScaler()
 scaler.fit(X_train)
 
 X_train = scaler.transform(X_train)  
