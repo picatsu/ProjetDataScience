@@ -34,10 +34,10 @@ csvValuesColumnNumber = 57
 
 # Depuis un csv
 csvFilePath = "../spambase/spambase.data";
-irisDataset = pd.read_csv(csvFilePath, header = None)  # names=names,
+mailDataset = pd.read_csv(csvFilePath, header = None)  # names=names,
 
-dataFieldsValues = irisDataset.iloc[:, :-1].values  # : signifie "tout" -> :-1 signifie "toutes les colonnes sauf la dernière"
-dataLabels = irisDataset.iloc[:, csvValuesColumnNumber].values  
+dataFieldsValues = mailDataset.iloc[:, :-1].values  # : signifie "tout" -> :-1 signifie "toutes les colonnes sauf la dernière"
+dataLabels = mailDataset.iloc[:, csvValuesColumnNumber].values  
 
 X_train, X_test, y_train, y_test = train_test_split(dataFieldsValues, dataLabels, test_size=0.2, shuffle=True) # test_size = 1 - train_size
 
@@ -71,12 +71,13 @@ for i in range(minKNumber, maxKNumber):
     knn = KNeighborsClassifier(n_neighbors=i)
     knn.fit(X_train, y_train)
     pred_i = knn.predict(X_test)
-    #print("pred_i = " + str(pred_i))
-    error.append(np.mean(pred_i != y_test))
+    meanRatio = np.mean(pred_i != y_test)
+    print("meanRatio = " + str(meanRatio) + " for k = " + str(i))
+    error.append(meanRatio)
     
 plt.figure(figsize=(14, 6))  
 plt.plot(range(minKNumber, maxKNumber), error, color='red', linestyle='dashed', marker='o',  
          markerfacecolor='blue', markersize=10)
-plt.title('Error Rate K Value')  
-plt.xlabel('K Value')  
-plt.ylabel('Mean Error') 
+plt.title('Taux d\'erreur en fonction de la valeur de K')  
+plt.xlabel('Valeur de K')  
+plt.ylabel('Erreur moyenne') 
