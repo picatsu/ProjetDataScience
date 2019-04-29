@@ -86,7 +86,7 @@ def predictWith(algoName, X_train, X_test, y_train, y_test) : # retourne une lis
     y_predict = None
     errorOccured = False
     
-    from sklearn.preprocessing import StandardScaler
+    #from sklearn.preprocessing import StandardScaler
     
     randSeed = int(time.time() * 10000000000) % 4294967295; # Modulo la valeur d'un int non signé : 2^32 - 1
     
@@ -99,15 +99,15 @@ def predictWith(algoName, X_train, X_test, y_train, y_test) : # retourne une lis
     if (algoName == "KNN") : # K-Nearest Neighbors
         print("predictWith  " + algoName)
         
-        scaler = StandardScaler()
+        """scaler = StandardScaler()
         scaler.fit(X_train)
         X_train_scaled = scaler.transform(X_train)  
-        X_test_scaled = scaler.transform(X_test)
+        X_test_scaled = scaler.transform(X_test)"""
         
         from sklearn.neighbors import KNeighborsClassifier # Seulement utiles pour KNN
         classifier = KNeighborsClassifier(n_neighbors=4)  #♪ avec les 4 voisins les plus proches (stable)
-        classifier.fit(X_train_scaled, y_train)
-        y_predict = classifier.predict(X_test_scaled) 
+        classifier.fit(X_train, y_train) # X_train_scaled
+        y_predict = classifier.predict(X_test) #X_test_scaled
         
         
     elif (algoName == "NaiveBayes") :
@@ -131,7 +131,7 @@ def predictWith(algoName, X_train, X_test, y_train, y_test) : # retourne une lis
     elif (algoName == "LogisticRegression") : # LogisticRegression
         print("predictWith  " + algoName)
         from sklearn.linear_model import LogisticRegression
-        classifier = LogisticRegression(random_state=0, solver='lbfgs', multi_class='ovr')
+        classifier = LogisticRegression(random_state=0, solver='lbfgs', multi_class='ovr', max_iter=100000)
         classifier.fit(X_train, y_train)  
         y_predict = classifier.predict(X_test)  
         #round(LR.score(X,y), 4)  <- retournera presque le même résultat que np.mean(y_predict != y_test) (dans getPredictErrorRatioOf(..))
@@ -143,7 +143,6 @@ def predictWith(algoName, X_train, X_test, y_train, y_test) : # retourne une lis
         classifier.fit(X_train, y_train)  
         y_predict = classifier.predict(X_test)
         #round(RF.score(X,y), 4)  <- retournera presque le même résultat que np.mean(y_predict != y_test) (dans getPredictErrorRatioOf(..))
-        
         
     elif (algoName == "Kernel SVM") : # SVM - Support Vector Machine
         print("predictWith  " + algoName)
@@ -240,7 +239,9 @@ def doFullBenchmark() :
     # y_test : labels pour vérifier le test
     
     
-    iterationNumber = 10;
+    iterationNumber = 6;
+    
+    
     
     # Permet d'avoir des jeux de test identiques pour chaque itération
     a2_X_train = []
@@ -248,10 +249,9 @@ def doFullBenchmark() :
     a2_y_train = []
     a2_y_test = []
     
+    # Jeu de tests scalé
     a2_X_train_scaled = []
     a2_X_test_scaled = []
-    #a2_y_train_scaled = []
-    #a2_y_test_scaled = []
     
     from sklearn.preprocessing import StandardScaler
     
@@ -269,8 +269,7 @@ def doFullBenchmark() :
         a2_X_train_scaled.append(X_train_scaled)
         a2_X_test_scaled.append(X_test_scaled)
         
-        
-        
+    
     
     
     predictionArrayErrorRatio = [] # prédiction, valeurs à comparer à y_test
@@ -345,19 +344,5 @@ def doFullBenchmark() :
 
 doFullBenchmark()
 
-#print(dataFieldsValues)
-#print(X_train)
-
-#KNN en exemple
-#classifier = KNeighborsClassifier(n_neighbors=4)
-#classifier.fit(X_train, y_train)
-
 # Le scaler de KNN ne fonctionne pas avec Naive Bayes car il produit des nombes négatifs,
 # ce que Naive Bayes ne supporte pas, malheureusement.
-'''
-scaler = StandardScaler()
-scaler.fit(X_train)
-X_train = scaler.transform(X_train)
-X_test = scaler.transform(X_test)
-'''
-
