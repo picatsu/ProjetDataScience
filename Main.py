@@ -25,7 +25,7 @@ print("############Knn############")
 print("############NaiveBayes############")
 
 
-"""Backpropagation"""
+"""Backpropagation = MLP pour Multilayer Perceptron"""
 print("############Backpropagation############")
 
 
@@ -37,10 +37,9 @@ print("############LogisticRegression############")
 print("############RandomForest############")
 
 
-"""Kernel SVM"""
+"""Kernel SVM = Support Vector Machine"""
 print("############Kernel SVM############")
 
 
 """Tsne"""
 print("############Tsne############")
-
