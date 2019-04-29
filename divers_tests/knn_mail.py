@@ -39,10 +39,27 @@ mailDataset = pd.read_csv(csvFilePath, header = None)  # names=names,
 dataFieldsValues = mailDataset.iloc[:, :-1].values  # : signifie "tout" -> :-1 signifie "toutes les colonnes sauf la dernière"
 dataLabels = mailDataset.iloc[:, csvValuesColumnNumber].values  
 
+# X_train : valeurs d'entraînement
+# y_train : labels d'entraînement (associés à chaque valeur)
+# X_test : valeurs pour le test
+# y_test : labels pour vérifier le test
+
 X_train, X_test, y_train, y_test = train_test_split(dataFieldsValues, dataLabels, test_size=0.2, shuffle=True) # test_size = 1 - train_size
 
+np.set_printoptions(threshold=np.inf)
+"""
 #print(dataFieldsValues)
-#print(X_train)
+print(" X train :")
+print(" X train :")
+print(" X train :")
+print(" X train :")
+print(X_train)
+print(" y_train :")
+print(" y_train :")
+print(" y_train :")
+print(" y_train :")
+print(" y_train :")
+print(y_train)"""
 
 scaler = StandardScaler()
 scaler.fit(X_train)
