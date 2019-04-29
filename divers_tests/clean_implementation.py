@@ -50,15 +50,15 @@ def drawBenchmarkForSingleValue(y_pred, y_test) :
 
 
 
-def drawBenchmarkForMultipleValues(predictionArrayErrorRatio, predictionArrayName) :
+def drawBenchmarkForMultipleValues(figureTitle, xLabelName, yLabelName, predictionArrayErrorRatio, predictionArrayName) :
     
     #list(range(minKNumber, maxKNumber)):  
     plt.figure(figsize=(14, 6))
     plt.plot(predictionArrayName, predictionArrayErrorRatio, color='red', linestyle='dashed', marker='o',  
              markerfacecolor='blue', markersize=10)
-    plt.title('Taux d\'erreur en fonction de la valeur de K')
-    plt.xlabel('Valeur de K')
-    plt.ylabel('Erreur moyenne')
+    plt.title(figureTitle) #'Taux d\'erreur en fonction de la valeur de K')
+    plt.xlabel(xLabelName) #'Valeur de K')
+    plt.ylabel(yLabelName) #'Erreur moyenne')
     
     
     
@@ -85,10 +85,12 @@ def predictWith(algoName, X_train, X_test, y_train, y_test) : # retourne une lis
     
     from sklearn.preprocessing import StandardScaler
     
-    randSeed = int(time.time() * 10000000000) % 4294967295;
+    randSeed = int(time.time() * 10000000000) % 4294967295; # Modulo la valeur d'un int non signé : 2^32 - 1
     
     print("predictWith randSeed = " + str(randSeed))
     np.random.seed(randSeed)
+    
+    startTimeMs = int(time.time() * 1000)
     
     
     if (algoName == "KNN") : # K-Nearest Neighbors
@@ -145,37 +147,42 @@ def predictWith(algoName, X_train, X_test, y_train, y_test) : # retourne une lis
     if (errorOccured == False) :
         print(classification_report(y_test, y_predict))
     
+    
+    elapsedTimeMs = int(time.time() * 1000) - startTimeMs
+    
     #if (y_predict == None) return None;
-    return y_predict, algoName
+    return y_predict, algoName, elapsedTimeMs
 
 
 def getPredictErrorRatioOf(algoName, X_train, X_test, y_train, y_test) :
     
-    y_predict, algoName2 = predictWith(algoName, X_train, X_test, y_train, y_test)
+    y_predict, algoName2, elapsedTimeMs = predictWith(algoName, X_train, X_test, y_train, y_test)
     localPredictErrorRatio = np.mean(y_predict != y_test)
     
-    return localPredictErrorRatio
+    return localPredictErrorRatio, elapsedTimeMs
 
-def getPredictErrorRatioOfAndAddToLists(algoName, X_train, X_test, y_train, y_test, predictionArrayErrorRatio, predictionArrayName) :
+def getPredictErrorRatioOfAndAddToLists(algoName, X_train, X_test, y_train, y_test, predictionArrayErrorRatio, predictionArrayName, predictionArrayTimeTookMs) :
     
-    localPredictErrorRatio = getPredictErrorRatioOf(algoName, X_train, X_test, y_train, y_test)
+    localPredictErrorRatio, elapsedTimeMs = getPredictErrorRatioOf(algoName, X_train, X_test, y_train, y_test)
     
     predictionArrayErrorRatio.append(localPredictErrorRatio)
     predictionArrayName.append(algoName)
+    predictionArrayTimeTookMs.append(elapsedTimeMs)
     
     return;
 
-def getPredictErrorRatioOfAndAddToLists_withA2List(algoName, a2_X_train, a2_X_test, a2_y_train, a2_y_test, predictionArrayErrorRatio, predictionArrayName) :
+def getPredictErrorRatioOfAndAddToLists_withA2List(algoName, a2_X_train, a2_X_test, a2_y_train, a2_y_test, predictionArrayErrorRatio, predictionArrayName, predictionArrayTimeTookMs) :
     
     iterationNumber = len(a2_X_train)
     
     if (iterationNumber <= 0) : return;
     
     for iIteration in range(0, iterationNumber) :
-        localPredictErrorRatio = getPredictErrorRatioOf(algoName, a2_X_train[iIteration], a2_X_test[iIteration], a2_y_train[iIteration], a2_y_test[iIteration])
+        localPredictErrorRatio, elapsedTimeMs = getPredictErrorRatioOf(algoName, a2_X_train[iIteration], a2_X_test[iIteration], a2_y_train[iIteration], a2_y_test[iIteration])
         
         predictionArrayErrorRatio.append(localPredictErrorRatio)
         predictionArrayName.append(algoName)
+        predictionArrayTimeTookMs.append(elapsedTimeMs)
     
     return;
 
@@ -221,11 +228,12 @@ def doFullBenchmark() :
     
     predictionArrayErrorRatio = [] # prédiction, valeurs à comparer à y_test
     predictionArrayName = []
+    predictionArrayTimeTookMs = []
     
     
-    getPredictErrorRatioOfAndAddToLists_withA2List("KNN", a2_X_train, a2_X_test, a2_y_train, a2_y_test, predictionArrayErrorRatio, predictionArrayName)
-    getPredictErrorRatioOfAndAddToLists_withA2List("MLP", a2_X_train, a2_X_test, a2_y_train, a2_y_test, predictionArrayErrorRatio, predictionArrayName)
-    getPredictErrorRatioOfAndAddToLists_withA2List("NaiveBayes", a2_X_train, a2_X_test, a2_y_train, a2_y_test, predictionArrayErrorRatio, predictionArrayName)
+    getPredictErrorRatioOfAndAddToLists_withA2List("KNN", a2_X_train, a2_X_test, a2_y_train, a2_y_test, predictionArrayErrorRatio, predictionArrayName, predictionArrayTimeTookMs)
+    getPredictErrorRatioOfAndAddToLists_withA2List("MLP", a2_X_train, a2_X_test, a2_y_train, a2_y_test, predictionArrayErrorRatio, predictionArrayName, predictionArrayTimeTookMs)
+    getPredictErrorRatioOfAndAddToLists_withA2List("NaiveBayes", a2_X_train, a2_X_test, a2_y_train, a2_y_test, predictionArrayErrorRatio, predictionArrayName, predictionArrayTimeTookMs)
     
     '''
     for i in range(0, iterationNumber) :
@@ -242,7 +250,12 @@ def doFullBenchmark() :
         getPredictErrorRatioOfAndAddToLists("MLP", X_train, X_test, y_train, y_test, predictionArrayErrorRatio, predictionArrayName)
         getPredictErrorRatioOfAndAddToLists("NaiveBayes", X_train, X_test, y_train, y_test, predictionArrayErrorRatio, predictionArrayName)
     '''
-    drawBenchmarkForMultipleValues(predictionArrayErrorRatio, predictionArrayName)
+    
+    
+    drawBenchmarkForMultipleValues('Taux d\'erreur en fonction de l\'algo utilisé', 'Algo utilisé',
+                                   'Erreur moyenne', predictionArrayErrorRatio, predictionArrayName)
+    
+    drawBenchmarkForMultipleValues("Temps pris par algorithme", "Algo utilisé", "Temps pris (ms)", predictionArrayTimeTookMs, predictionArrayName)
     
     
    # classifier = MultinomialNB().fit(X_train, y_train)
