@@ -20,6 +20,12 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report, confusion_matrix
 import pandas as pd
 import time
+import algo.SVM as svm
+import algo.LogisticRegression as lr
+import algo.MLP as mlp
+import algo.NaiveBayes as nb
+import algo.RandomForest as rf
+import algo.KNN as knn
 # Naive Bayes spécifique
 
 
@@ -87,62 +93,17 @@ def predictWith(algoName, X_train, X_test, y_train, y_test):
     startTimeMs = int(time.time() * 1000)
 
     if algoName == "KNN":  # K-Nearest Neighbors
-        print("predictWith  " + algoName)
-        
-        """scaler = StandardScaler()
-        scaler.fit(X_train)
-        X_train_scaled = scaler.transform(X_train)  
-        X_test_scaled = scaler.transform(X_test)"""
-        
-        from sklearn.neighbors import KNeighborsClassifier  # Seulement utiles pour KNN
-        classifier = KNeighborsClassifier(n_neighbors=4)  # ♪ avec les 4 voisins les plus proches (stable)
-        classifier.fit(X_train, y_train) # X_train_scaled
-        y_predict = classifier.predict(X_test)  # X_test_scaled
+        y_predict = knn.main(algoName, X_train, X_test, y_train, y_test)
     elif algoName == "NaiveBayes":
-        print(algoName)
-        # Import à chaque fois pour réinitialiser les tests !
-        from sklearn.naive_bayes import MultinomialNB
-        classifier = MultinomialNB();
-        classifier.fit(X_train, y_train)
-        y_predict = classifier.predict(X_test)
+        y_predict = nb.main(algoName, X_train, X_test, y_train, y_test)
     elif algoName == "MLP": # Backpropagation = MLP pour Multilayer Perceptron
-        print("predictWith  " + algoName)
-        # Import à chaque fois pour réinitialiser les tests !
-        from sklearn.neural_network import MLPClassifier  
-        classifier = MLPClassifier(hidden_layer_sizes=(10, 10, 10), max_iter=1000)  # mlp -> classifier
-        classifier.fit(X_train, y_train.ravel())  
-        y_predict = classifier.predict(X_test)
+        y_predict = mlp.main(algoName, X_train, X_test, y_train, y_test)
     elif algoName == "LogisticRegression": # LogisticRegression
-        print("predictWith  " + algoName)
-        from sklearn.linear_model import LogisticRegression
-        classifier = LogisticRegression(random_state=0, solver='lbfgs', multi_class='ovr', max_iter=100000)
-        classifier.fit(X_train, y_train)  
-        y_predict = classifier.predict(X_test)  
-        # round(LR.score(X,y), 4)  <- retournera presque le même résultat que np.mean(y_predict != y_test)
-        # (dans getPredictErrorRatioOf(..))
+        y_predict = lr.main(algoName, X_train, X_test, y_train, y_test)
     elif algoName == "RandomForest":
-        print("predictWith  " + algoName)
-        from sklearn.ensemble import RandomForestClassifier
-        classifier = RandomForestClassifier(n_estimators=100, max_depth=2, random_state=0)  
-        classifier.fit(X_train, y_train)  
-        y_predict = classifier.predict(X_test)
-        # round(RF.score(X,y), 4)  <- retournera presque le même résultat que np.mean(y_predict != y_test)
-        # (dans getPredictErrorRatioOf(..))
+        y_predict = rf.main(algoName, X_train, X_test, y_train, y_test)
     elif algoName == "Kernel SVM":  # SVM - Support Vector Machine
-        print("predictWith  " + algoName)
-        from sklearn import svm
-        SVM = svm.SVC(decision_function_shape="ovo").fit(X_train, y_train)
-        y_predict = SVM.predict(X_test)
-      
-        ''' Je sais pas comment faire !
-        elif (algoName == "TSNE") : # T-distributed Stochastic Neighbor Embedding
-        print("predictWith  " + algoName)
-        from sklearn.manifold import TSNE
-        tsne = TSNE(n_components=2, verbose=1, perplexity=40, n_iter=300)
-        tsne.fit(X_train, y_train)
-        
-        # = tsne.predict(X_test)
-        '''
+        y_predict = svm.main(algoName, X_train, X_test, y_train, y_test)
     else:
         print("ERREUR predictWith : nom de l'algo invalide. algoName = " + algoName)
         y_predict = None
@@ -191,7 +152,6 @@ def getPredictErrorRatioOfAndAddToLists_withA2List(algoName, a2_X_train, a2_X_te
 
 # Fonction main
 def doFullBenchmark():
-    
     # Chargement initial des données (mails)
     csvValuesColumnNumber = 57
     
