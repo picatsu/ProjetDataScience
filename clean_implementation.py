@@ -94,13 +94,13 @@ def predictWith(algoName, X_train, X_test, y_train, y_test):
 
     if algoName == "KNN":  # K-Nearest Neighbors
         y_predict = knn.main(algoName, X_train, X_test, y_train, y_test)
-    elif algoName == "NaiveBayes":
+    elif algoName == "NaiveBayes": # NaiveBayes
         y_predict = nb.main(algoName, X_train, X_test, y_train, y_test)
     elif algoName == "MLP": # Backpropagation = MLP pour Multilayer Perceptron
         y_predict = mlp.main(algoName, X_train, X_test, y_train, y_test)
     elif algoName == "LogisticRegression": # LogisticRegression
         y_predict = lr.main(algoName, X_train, X_test, y_train, y_test)
-    elif algoName == "RandomForest":
+    elif algoName == "RandomForest": # RandomForest
         y_predict = rf.main(algoName, X_train, X_test, y_train, y_test)
     elif algoName == "Kernel SVM":  # SVM - Support Vector Machine
         y_predict = svm.main(algoName, X_train, X_test, y_train, y_test)
