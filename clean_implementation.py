@@ -157,14 +157,14 @@ def doFullBenchmark():
     
     # Depuis le csv des mails
     csvFilePath = "spambase/spambase.data";
-    mailDataset = pd.read_csv(csvFilePath, header = None)  # names=names,
-    
+    mailDataset = pd.read_csv(csvFilePath, header=None)  # names=names,
+    mailDataset.drop(columns=[26,27])  # Drop columns "Georges & 650" contextual false-positives
     # Split des colonnes en deux : les valeurs (dataFieldsValues) et le label pour chaque mail (dataLabels)
     # permettant de savoir si c'est un spam (1) ou non
     dataFieldsValues = mailDataset.iloc[:, :-1].values
     # : signifie "tout" -> :-1 signifie "toutes les colonnes sauf la dernière"
-    dataLabels = mailDataset.iloc[:, csvValuesColumnNumber].values  
-    
+    dataLabels = mailDataset.iloc[:, csvValuesColumnNumber].values
+
     # train_test_split(counts, df['label'], test_size=0.1, random_state=69)
     
     # Split des lignes de spambase et shuffle pour avoir un échantillon aléatoire
