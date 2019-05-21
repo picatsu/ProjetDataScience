@@ -10,9 +10,10 @@ reader = csv.reader(f, dialect='myDialect')
 for row in reader:
     print(row[57])
 """
+import Algos.KNearestNeighbors as KNN
 
 """Knn"""
-print("############Knn############")
+KNN.test()
 
 """NaiveBayes"""
 print("############NaiveBayes############")

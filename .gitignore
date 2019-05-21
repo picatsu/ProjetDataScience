@@ -1,3 +1,5 @@
 .idea/*
 __pycache__/*
+algo/__pycache__/*
+Algos/__pycache__/*
 
