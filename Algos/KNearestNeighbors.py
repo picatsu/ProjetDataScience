@@ -83,7 +83,6 @@ class KNearestNeighbors:
             if not errorOccured:
                 print(classification_report(a2_y_test[iIteration], y_predict))
 
-
             elapsedTimeMs = int(time.time() * 1000) - startTimeMs
 
             localPredictErrorRatio = np.mean(y_predict != a2_y_test[iIteration])

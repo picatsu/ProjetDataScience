@@ -11,9 +11,12 @@ for row in reader:
     print(row[57])
 """
 import Algos.KNearestNeighbors as KNN
+import Algos.LogisticRegression as LR
+import Algos.RandomForest as RF
+import Algos.SupportVectorMachine as SVM
 
 """Knn"""
-KNN.test()
+# KNN.test()
 
 """NaiveBayes"""
 print("############NaiveBayes############")
@@ -22,13 +25,13 @@ print("############NaiveBayes############")
 print("############Backpropagation############")
 
 """LogisticRegression"""
-print("############LogisticRegression############")
+# KNN.test()
 
 """RandomForest"""
-print("############RandomForest############")
+# RF.test()
 
 """Kernel SVM = Support Vector Machine"""
-print("############Kernel SVM############")
+SVM.test()
 
 """Tsne"""
 print("############Tsne############")
