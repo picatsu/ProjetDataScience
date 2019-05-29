@@ -16,7 +16,7 @@ import Algos.RandomForest as RF
 import Algos.SupportVectorMachine as SVM
 
 """Knn"""
-# KNN.test()
+KNN.test()
 
 """NaiveBayes"""
 print("############NaiveBayes############")
@@ -25,10 +25,10 @@ print("############NaiveBayes############")
 print("############Backpropagation############")
 
 """LogisticRegression"""
-# KNN.test()
+LR.test()
 
 """RandomForest"""
-# RF.test()
+RF.test()
 
 """Kernel SVM = Support Vector Machine"""
 SVM.test()

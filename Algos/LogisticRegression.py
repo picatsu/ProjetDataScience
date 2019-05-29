@@ -110,9 +110,9 @@ class LogisticRegression:
             startTimeMs = int(time.time() * 1000)
 
             print("predictWith  " + "LR")
-            from sklearn.neighbors import KNeighborsClassifier  # Seulement utiles pour KNN
+            from sklearn.linear_model import LogisticRegression
 
-            classifier = KNeighborsClassifier(n_neighbors=4)  # ♪ avec les 4 voisins les plus proches (stable)
+            classifier = LogisticRegression(random_state=0, solver='lbfgs', multi_class='ovr', max_iter=100000)
             classifier.fit(a2_X_train_scaled[iIteration], a2_y_train[iIteration])  # X_train_scaled
             y_predict = classifier.predict(a2_X_test_scaled[iIteration])  # X_test_scaled
 
