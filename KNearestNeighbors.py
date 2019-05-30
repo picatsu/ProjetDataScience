@@ -8,6 +8,7 @@ import pandas as pd
 import time
 import Benchmark
 import csv
+import random
 
 
 
@@ -17,8 +18,8 @@ class KNearestNeighbors:
         self.Tab = []
         return 
         
-    def run(self):
-        iterationNumber = 10
+    def run(self, colum):
+        iterationNumber = 20
         print("KNN running")
         print("KNearestNeighbors initializing")
         # Chargement initial des données (mails)
@@ -42,7 +43,7 @@ class KNearestNeighbors:
         "word_freq_conference", 
         "word_freq_meeting"]
         """
-        mailDataset.drop(columns=[8, 22,23,26, 27,28, 45,46, 51])  # Drop columns "Georges & 650" contextual false-positives
+        mailDataset.drop(colum)  # Drop columns "Georges & 650" contextual false-positives
         # Split des colonnes en deux : les valeurs (dataFieldsValues) et le label pour chaque mail (dataLabels)
         # permettant de savoir si c'est un spam (1) ou non
         dataFieldsValues = mailDataset.iloc[:, :-1].values
@@ -167,12 +168,28 @@ class KNearestNeighbors:
 
 
 def test():
-    Tab = KNearestNeighbors().run()
+    Tab = KNearestNeighbors().run([26, 27,28])
     print('####### SCORE KNN ####')
     print('max : ',max(Tab))
     print('min :',min(Tab))
     print('AVG :',sum(Tab)/len(Tab))
     print('#####################')
+          
+def test2():
+    maximum = 0
+    listefinal = []
+    
+    for i in range(50):
+        Colum = Columgenerate(i)
+        print(Colum)
+        Tab =KNearestNeighbors().run(Colum)
+        if( max(Tab) > maximum):
+            maximum = max(Tab)
+            listefinal = Colum
+            print ( 'MAximum', maximum, 'liste : ', listefinal)
+        
+        
+    print ( 'MAximum', maximum, 'liste : ', listefinal)
 def draw(predictionArrayErrorRatio, predictionArrayName, predictionArrayErrorRatioScaled, predictionArrayNameScaled, predictionArrayTimeTookMsScaled, predictionArrayTimeTookMs ):
     Benchmark.drawBenchmarkForMultipleValues('Non Scalé - Taux d\'erreur en fonction de l\'algo utilisé', 'Algo utilisé', 'Erreur moyenne', predictionArrayErrorRatio, predictionArrayName)
     Benchmark.drawBenchmarkForMultipleValues('Scalé - Taux d\'erreur en fonction de l\'algo utilisé', 'Algo utilisé', 'Erreur moyenne', predictionArrayErrorRatioScaled, predictionArrayNameScaled)
@@ -189,6 +206,8 @@ def moyenne(liste):
     return somme(liste)/len(liste)
     
     
+def Columgenerate(taille):
+    return random.sample(range(56), taille)
     
 
     

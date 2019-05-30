@@ -14,7 +14,7 @@ class SupportVectorMachine:
         return
         
     def run(self, colum):
-        iterationNumber = 2
+        iterationNumber = 10
         print("SupportVectorMachine initializing")
         # Chargement initial des données (mails)
         csvValuesColumnNumber = 57
@@ -154,11 +154,11 @@ class SupportVectorMachine:
         #draw(predictionArrayErrorRatio, predictionArrayName, predictionArrayErrorRatioScaled, predictionArrayNameScaled, predictionArrayTimeTookMsScaled, predictionArrayTimeTookMs )
         return self.Tab
 
-def test():
+def test2():
     maximum = 0
     listefinal = []
     
-    for i in range(10):
+    for i in range(56):
         Colum = Columgenerate(i)
         print(Colum)
         Tab =SupportVectorMachine().run(Colum)
@@ -169,8 +169,8 @@ def test():
         
         
     print ( 'MAximum', maximum, 'liste : ', listefinal)
-def test2():
-    Tab =SupportVectorMachine().run([26,27,28])
+def test():
+    Tab =SupportVectorMachine().run([12, 40, 11, 25, 35, 33, 31, 21, 29, 39, 42, 10, 34, 24, 51, 26, 23, 50, 5, 43, 38])
     print('#### SCORE SVM  ####')
     print('max : ',max(Tab))
     print('min :',min(Tab))
@@ -192,5 +192,5 @@ def moyenne(liste):
     return somme(liste)/len(liste)
 
 def Columgenerate(taille):
-    return random.sample(range(56), taille)
+    return random.sample(range(52), taille)
 
