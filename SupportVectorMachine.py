@@ -5,6 +5,7 @@ from sklearn.model_selection import train_test_split
 import pandas as pd
 import time
 import Benchmark
+import random
 
 
 class SupportVectorMachine:
@@ -12,14 +13,14 @@ class SupportVectorMachine:
         self.Tab = []
         return
         
-    def run(self):
-        iterationNumber = 10
+    def run(self, colum):
+        iterationNumber = 2
         print("SupportVectorMachine initializing")
         # Chargement initial des données (mails)
         csvValuesColumnNumber = 57
         csvFilePath = "spambase/spambase.data"
         mailDataset = pd.read_csv(csvFilePath, header=None)  # names=names,
-        mailDataset.drop(columns=[26, 27])  # Drop columns "Georges & 650" contextual false-positives
+        mailDataset.drop(colum)  # Drop columns "Georges & 650" contextual false-positives
         # Split des colonnes en deux : les valeurs (dataFieldsValues) et le label pour chaque mail (dataLabels)
         # permettant de savoir si c'est un spam (1) ou non
         dataFieldsValues = mailDataset.iloc[:, :-1].values
@@ -154,12 +155,27 @@ class SupportVectorMachine:
         return self.Tab
 
 def test():
-    Tab =SupportVectorMachine().run()
+    maximum = 0
+    listefinal = []
+    
+    for i in range(10):
+        Colum = Columgenerate(i)
+        print(Colum)
+        Tab =SupportVectorMachine().run(Colum)
+        if( max(Tab) > maximum):
+            maximum = max(Tab)
+            listefinal = Colum
+            print ( 'MAximum', maximum, 'liste : ', listefinal)
+        
+        
+    print ( 'MAximum', maximum, 'liste : ', listefinal)
+def test2():
+    Tab =SupportVectorMachine().run([26,27,28])
     print('#### SCORE SVM  ####')
     print('max : ',max(Tab))
     print('min :',min(Tab))
     print('AVG :',sum(Tab)/len(Tab))
-    print('#####################')
+    print('#####################')    
 
 def draw(predictionArrayErrorRatio, predictionArrayName, predictionArrayErrorRatioScaled, predictionArrayNameScaled, predictionArrayTimeTookMsScaled, predictionArrayTimeTookMs ):
     Benchmark.drawBenchmarkForMultipleValues('Non Scalé - Taux d\'erreur en fonction de l\'algo utilisé', 'Algo utilisé', 'Erreur moyenne', predictionArrayErrorRatio, predictionArrayName)
@@ -174,4 +190,7 @@ def somme(liste):
 
 def moyenne(liste):
     return somme(liste)/len(liste)
+
+def Columgenerate(taille):
+    return random.sample(range(56), taille)
 

@@ -25,7 +25,24 @@ class KNearestNeighbors:
         csvValuesColumnNumber = 57
         csvFilePath = "spambase/spambase.data"
         mailDataset = pd.read_csv(csvFilePath, header=None)  # names=names,
-        mailDataset.drop(columns=[26, 27])  # Drop columns "Georges & 650" contextual false-positives
+        """
+        self.selected_words = [
+        "char_freq_$",
+        "char_freq_!", 
+        "word_freq_order", 
+        "word_freq_free", 
+        "word_freq_money",
+        "word_freq_receive",
+        "word_freq_000",
+        "word_freq_george",
+        "word_freq_650",
+        "word_freq_lab",
+        "word_freq_labs", 
+        "word_freq_edu",
+        "word_freq_conference", 
+        "word_freq_meeting"]
+        """
+        mailDataset.drop(columns=[8, 22,23,26, 27,28, 45,46, 51])  # Drop columns "Georges & 650" contextual false-positives
         # Split des colonnes en deux : les valeurs (dataFieldsValues) et le label pour chaque mail (dataLabels)
         # permettant de savoir si c'est un spam (1) ou non
         dataFieldsValues = mailDataset.iloc[:, :-1].values

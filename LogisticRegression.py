@@ -19,7 +19,7 @@ class LogisticRegression:
         csvValuesColumnNumber = 57
         csvFilePath = "spambase/spambase.data"
         mailDataset = pd.read_csv(csvFilePath, header=None)  # names=names,
-        mailDataset.drop(columns=[26, 27])  # Drop columns "Georges & 650" contextual false-positives
+        mailDataset.drop(columns=[8, 22,23,26, 27,28, 45, 51, 53]) # Drop columns "Georges & 650" contextual false-positives
         # Split des colonnes en deux : les valeurs (dataFieldsValues) et le label pour chaque mail (dataLabels)
         # permettant de savoir si c'est un spam (1) ou non
         dataFieldsValues = mailDataset.iloc[:, :-1].values
