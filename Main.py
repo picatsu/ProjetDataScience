@@ -35,7 +35,7 @@ LR.test()
 RF.test()
 
 """Kernel SVM = Support Vector Machine"""
-#SVM.test()
+SVM.test()
 
 """Tsne"""
 print("############Tsne############")

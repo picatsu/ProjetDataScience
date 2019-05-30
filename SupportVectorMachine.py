@@ -100,7 +100,7 @@ class SupportVectorMachine:
             elapsedTimeMs = int(time.time() * 1000) - startTimeMs
 
             localPredictErrorRatio = np.mean(y_predict != a2_y_test[iIteration])
-            self.Tab.append(1 - localPredictErrorRatio)
+            
 
             predictionArrayErrorRatio.append(localPredictErrorRatio)
             predictionArrayName.append("SVM")
@@ -137,6 +137,7 @@ class SupportVectorMachine:
             elapsedTimeMs = int(time.time() * 1000) - startTimeMs
 
             localPredictErrorRatio = np.mean(y_predict != a2_y_test[iIteration])
+            self.Tab.append(1 - localPredictErrorRatio)
 
             predictionArrayErrorRatioScaled.append(localPredictErrorRatio)
             predictionArrayNameScaled.append("SVM")
