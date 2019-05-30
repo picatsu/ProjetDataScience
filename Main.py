@@ -12,7 +12,7 @@ for row in reader:
 """
 import sys
 # the mock-0.3.1 dir contains testcase.py, testutils.py & mock.py
-sys.path.append('C:\Users\m6d\OneDrive\Bureau\DANT\DATA SCIENCE\ProjetDataScience-master\ProjetDataScience-master\Algos')
+#sys.path.append('C:\Users\m6d\OneDrive\Bureau\DANT\DATA SCIENCE\ProjetDataScience\ProjetDataScience\Algos')
 
 import KNearestNeighbors as KNN
 import LogisticRegression as LR
@@ -29,13 +29,13 @@ print("############NaiveBayes############")
 print("############Backpropagation############")
 
 """LogisticRegression"""
-LR.test()
+# LR.test()
 
 """RandomForest"""
-RF.test()
+#RF.test()
 
 """Kernel SVM = Support Vector Machine"""
-SVM.test()
+#SVM.test()
 
 """Tsne"""
 print("############Tsne############")
