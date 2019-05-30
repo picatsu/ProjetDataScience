@@ -10,10 +10,14 @@ reader = csv.reader(f, dialect='myDialect')
 for row in reader:
     print(row[57])
 """
-import Algos.KNearestNeighbors as KNN
-import Algos.LogisticRegression as LR
-import Algos.RandomForest as RF
-import Algos.SupportVectorMachine as SVM
+import sys
+# the mock-0.3.1 dir contains testcase.py, testutils.py & mock.py
+sys.path.append('C:\Users\m6d\OneDrive\Bureau\DANT\DATA SCIENCE\ProjetDataScience-master\ProjetDataScience-master\Algos')
+
+import KNearestNeighbors as KNN
+import LogisticRegression as LR
+import RandomForest as RF
+import SupportVectorMachine as SVM
 
 """Knn"""
 KNN.test()

@@ -5,7 +5,7 @@ from sklearn.metrics import classification_report, confusion_matrix
 
 def drawBenchmarkForSingleValue(y_pred, y_test):
     print(classification_report(y_test, y_pred))
-    # Dessin d'un tableau pour pouvoir graphiquement le comparer à KNN
+    # Dessin d'un tableau pour pouvoir graphiquement le comparer a KNN
     rangeFirst = [1, 2] # = en python 3,  list(range(1, 3)) #
     # print(rangeFirst)
     # print(y_pred)
@@ -22,7 +22,7 @@ def drawBenchmarkForSingleValue(y_pred, y_test):
     plt.plot(rangeFirst, error, color='red', linestyle='dashed', marker='o',
              markerfacecolor='blue', markersize=10)
     plt.title('Taux d\'erreur pour Naive Bayes')
-    plt.xlabel('Par compatibilité, pour avoir un graphe')
+    plt.xlabel('Par compatibilite, pour avoir un graphe')
     plt.ylabel('Erreur moyenne')
 
     return 0
@@ -42,12 +42,12 @@ def drawBenchmarkForMultipleValues(figureTitle, xLabelName, yLabelName, predicti
 
 '''
 Mettre ici tout les tests
-Faire des benchmarks entre les tests, les lancer SUR LE MÊME JEU DE DONNEES !
-Implémenter des timers
+Faire des benchmarks entre les tests, les lancer SUR LE MEME JEU DE DONNEES !
+Implementer des timers
 Potentiellement, faire des recoupements entre les algorithmes, et voir comment
- fusionner les résultats de plusieurs algos pour avoir une prédiction plus fine et exacte.
+ fusionner les resultats de plusieurs algos pour avoir une prediction plus fine et exacte.
 
-Tous les alogs devront être fait les uns après les autres, sur le même train_test_split !
+Tous les alogs devront etre fait les uns apres les autres, sur le meme train_test_split !
 '''
 
 
