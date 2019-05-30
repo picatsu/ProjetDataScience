@@ -13,7 +13,7 @@ class RandomForest:
         return
        
     def run(self):
-        iterationNumber = 5
+        iterationNumber = 10
         print("RandomForest initializing")
         # Chargement initial des données (mails)
         csvValuesColumnNumber = 57
@@ -72,21 +72,22 @@ class RandomForest:
             errorOccured = False
             randSeed = int(time.time() * 10000000000) % 4294967295  # Modulo la valeur d'un int non signé : 2^32 - 1
 
-            print("predictWith randSeed = " + str(randSeed))
+            #print("predictWith randSeed = " + str(randSeed))
             np.random.seed(randSeed)
 
             startTimeMs = int(time.time() * 1000)
 
-            print("predictWith  " + "RF")
+            #print("predictWith  " + "RF")
             from sklearn.ensemble import RandomForestClassifier
 
             classifier = RandomForestClassifier(n_estimators=100, max_depth=2, random_state=0)
             classifier.fit(a2_X_train[iIteration], a2_y_train[iIteration])  # X_train_scaled
             y_predict = classifier.predict(a2_X_test[iIteration])  # X_test_scaled
 
-            if not errorOccured:
-                print(classification_report(a2_y_test[iIteration], y_predict))
-
+            """if not errorOccured:
+                continue
+                #print(classification_report(a2_y_test[iIteration], y_predict))
+            """
 
             elapsedTimeMs = int(time.time() * 1000) - startTimeMs
 
@@ -109,21 +110,22 @@ class RandomForest:
             errorOccured = False
             randSeed = int(time.time() * 10000000000) % 4294967295  # Modulo la valeur d'un int non signé : 2^32 - 1
 
-            print("predictWith randSeed = " + str(randSeed))
+            #print("predictWith randSeed = " + str(randSeed))
             np.random.seed(randSeed)
 
             startTimeMs = int(time.time() * 1000)
 
-            print("predictWith  " + "RF")
+            #print("predictWith  " + "RF")
             from sklearn.ensemble import RandomForestClassifier
 
             classifier = RandomForestClassifier(n_estimators=100, max_depth=2, random_state=0)
             classifier.fit(a2_X_train_scaled[iIteration], a2_y_train[iIteration])  # X_train_scaled
             y_predict = classifier.predict(a2_X_test_scaled[iIteration])  # X_test_scaled
 
-            if not errorOccured:
-                print(classification_report(a2_y_test[iIteration], y_predict))
-
+            """if not errorOccured:
+                continue
+                #print(classification_report(a2_y_test[iIteration], y_predict))
+            """
             elapsedTimeMs = int(time.time() * 1000) - startTimeMs
 
             localPredictErrorRatio = np.mean(y_predict != a2_y_test[iIteration])

@@ -13,7 +13,7 @@ class SupportVectorMachine:
         return
         
     def run(self):
-        iterationNumber = 5
+        iterationNumber = 10
         print("SupportVectorMachine initializing")
         # Chargement initial des données (mails)
         csvValuesColumnNumber = 57
@@ -72,12 +72,12 @@ class SupportVectorMachine:
             errorOccured = False
             randSeed = int(time.time() * 10000000000) % 4294967295  # Modulo la valeur d'un int non signé : 2^32 - 1
 
-            print("predictWith randSeed = " + str(randSeed))
+            #print("predictWith randSeed = " + str(randSeed))
             np.random.seed(randSeed)
 
             startTimeMs = int(time.time() * 1000)
 
-            print("predictWith  " + "KNN")
+            #print("predictWith  " + "KNN")
             from sklearn import svm
 
             classifier = svm.SVC(decision_function_shape="ovo")
@@ -92,10 +92,11 @@ class SupportVectorMachine:
             '''
             classifier.fit(a2_X_train[iIteration], a2_y_train[iIteration])  # X_train_scaled
             y_predict = classifier.predict(a2_X_test[iIteration])  # X_test_scaled
-
+            """
             if not errorOccured:
-                print(classification_report(a2_y_test[iIteration], y_predict))
-
+                continue
+                #print(classification_report(a2_y_test[iIteration], y_predict))
+            """
 
             elapsedTimeMs = int(time.time() * 1000) - startTimeMs
 
@@ -119,21 +120,22 @@ class SupportVectorMachine:
             errorOccured = False
             randSeed = int(time.time() * 10000000000) % 4294967295  # Modulo la valeur d'un int non signé : 2^32 - 1
 
-            print("predictWith randSeed = " + str(randSeed))
+            #print("predictWith randSeed = " + str(randSeed))
             np.random.seed(randSeed)
 
             startTimeMs = int(time.time() * 1000)
 
-            print("predictWith  " + "SVM")
+            #print("predictWith  " + "SVM")
             from sklearn import svm
 
             classifier = svm.SVC(decision_function_shape="ovo").fit(X_train, y_train)
             classifier.fit(a2_X_train_scaled[iIteration], a2_y_train[iIteration])  # X_train_scaled
             y_predict = classifier.predict(a2_X_test_scaled[iIteration])  # X_test_scaled
-
+            """
             if not errorOccured:
-                print(classification_report(a2_y_test[iIteration], y_predict))
-
+                continue
+                #print(classification_report(a2_y_test[iIteration], y_predict))
+            """
             elapsedTimeMs = int(time.time() * 1000) - startTimeMs
 
             localPredictErrorRatio = np.mean(y_predict != a2_y_test[iIteration])

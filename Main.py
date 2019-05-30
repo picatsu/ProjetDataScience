@@ -20,8 +20,7 @@ import RandomForest as RF
 import SupportVectorMachine as SVM
 
 """Knn"""
-KNN.test()
-
+res1 = KNN.test()
 """NaiveBayes"""
 #print("############NaiveBayes############")
 
@@ -29,13 +28,13 @@ KNN.test()
 #print("############Backpropagation############")
 
 """LogisticRegression"""
-LR.test()
+res2 = LR.test()
 
 """RandomForest"""
-RF.test()
+res3 = RF.test()
 
 """Kernel SVM = Support Vector Machine"""
-SVM.test()
+res4 = SVM.test()
 
 """Tsne"""
 print("############Tsne############")
