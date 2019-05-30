@@ -9,6 +9,11 @@ import Benchmark
 
 class LogisticRegression:
     def __init__(self):
+        self.Tab = []
+        return 
+        
+    def run(self):
+        iterationNumber = 5
         print("LogisticRegression initializing")
         # Chargement initial des données (mails)
         csvValuesColumnNumber = 57
@@ -27,7 +32,6 @@ class LogisticRegression:
         # y_train : labels d'entraînement (associés à chaque valeur)
         # X_test : valeurs pour le test
         # y_test : labels pour vérifier le test
-        iterationNumber = 2
         # Permet d'avoir des jeux de test identiques pour chaque itération
         a2_X_train = []
         a2_X_test = []
@@ -122,20 +126,41 @@ class LogisticRegression:
             elapsedTimeMs = int(time.time() * 1000) - startTimeMs
 
             localPredictErrorRatio = np.mean(y_predict != a2_y_test[iIteration])
+            self.Tab.append(1 - localPredictErrorRatio)
+
 
             predictionArrayErrorRatioScaled.append(localPredictErrorRatio)
             predictionArrayNameScaled.append("LR")
             predictionArrayTimeTookMsScaled.append(elapsedTimeMs)
-
+            """
         Benchmark.drawBenchmarkForMultipleValues('Non Scalé - Taux d\'erreur en fonction de l\'algo utilisé', 'Algo utilisé', 'Erreur moyenne', predictionArrayErrorRatio, predictionArrayName)
         Benchmark.drawBenchmarkForMultipleValues('Scalé - Taux d\'erreur en fonction de l\'algo utilisé', 'Algo utilisé', 'Erreur moyenne', predictionArrayErrorRatioScaled, predictionArrayNameScaled)
         Benchmark.drawBenchmarkForMultipleValues("Non Scalé - Temps pris par algorithme", "Algo utilisé", "Temps pris (ms)", predictionArrayTimeTookMs, predictionArrayName)
         Benchmark.drawBenchmarkForMultipleValues("Scalé - Temps pris par algorithme", "Algo utilisé", "Temps pris (ms)", predictionArrayTimeTookMsScaled, predictionArrayNameScaled)
-
-    def run(self):
-        print("LR running")
-
+        """
+        #draw(predictionArrayErrorRatio, predictionArrayName, predictionArrayErrorRatioScaled, predictionArrayNameScaled, predictionArrayTimeTookMsScaled, predictionArrayTimeTookMs )
+        return self.Tab
 
 def test():
-    test = LogisticRegression()
-    test.run()
+    Tab = LogisticRegression().run()
+    print('#### SCORE LR ####')
+    print('max : ',max(Tab))
+    print('min :',min(Tab))
+    print('AVG :',sum(Tab)/len(Tab))
+    print('#####################')
+
+def draw(predictionArrayErrorRatio, predictionArrayName, predictionArrayErrorRatioScaled, predictionArrayNameScaled, predictionArrayTimeTookMsScaled, predictionArrayTimeTookMs ):
+    Benchmark.drawBenchmarkForMultipleValues('Non Scalé - Taux d\'erreur en fonction de l\'algo utilisé', 'Algo utilisé', 'Erreur moyenne', predictionArrayErrorRatio, predictionArrayName)
+    Benchmark.drawBenchmarkForMultipleValues('Scalé - Taux d\'erreur en fonction de l\'algo utilisé', 'Algo utilisé', 'Erreur moyenne', predictionArrayErrorRatioScaled, predictionArrayNameScaled)
+    Benchmark.drawBenchmarkForMultipleValues("Non Scalé - Temps pris par algorithme", "Algo utilisé", "Temps pris (ms)", predictionArrayTimeTookMs, predictionArrayName)
+    Benchmark.drawBenchmarkForMultipleValues("Scalé - Temps pris par algorithme", "Algo utilisé", "Temps pris (ms)", predictionArrayTimeTookMsScaled, predictionArrayNameScaled)
+
+def somme(liste):
+    _somme = 0
+    for i in liste:
+        _somme = _somme + i
+    return _somme
+
+def moyenne(liste):
+    return somme(liste)/len(liste)
+

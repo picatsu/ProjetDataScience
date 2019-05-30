@@ -7,10 +7,19 @@ from sklearn.preprocessing import StandardScaler
 import pandas as pd
 import time
 import Benchmark
+import csv
+
 
 
 class KNearestNeighbors:
+    
     def __init__(self):
+        self.Tab = []
+        return 
+        
+    def run(self):
+        iterationNumber = 5
+        print("KNN running")
         print("KNearestNeighbors initializing")
         # Chargement initial des données (mails)
         csvValuesColumnNumber = 57
@@ -29,7 +38,6 @@ class KNearestNeighbors:
         # y_train : labels d'entraînement (associés à chaque valeur)
         # X_test : valeurs pour le test
         # y_test : labels pour vérifier le test
-        iterationNumber = 2
         # Permet d'avoir des jeux de test identiques pour chaque itération
         a2_X_train = []
         a2_X_test = []
@@ -114,27 +122,55 @@ class KNearestNeighbors:
             classifier = KNeighborsClassifier(n_neighbors=4)  # ♪ avec les 4 voisins les plus proches (stable)
             classifier.fit(a2_X_train_scaled[iIteration], a2_y_train[iIteration])  # X_train_scaled
             y_predict = classifier.predict(a2_X_test_scaled[iIteration])  # X_test_scaled
-
             if not errorOccured:
                 print(classification_report(a2_y_test[iIteration], y_predict))
 
             elapsedTimeMs = int(time.time() * 1000) - startTimeMs
+            self.Tab.append(1 - localPredictErrorRatio)
+            
 
             localPredictErrorRatio = np.mean(y_predict != a2_y_test[iIteration])
+            
+            print('affichageeeeeeee',1 - localPredictErrorRatio)
+
 
             predictionArrayErrorRatioScaled.append(localPredictErrorRatio)
             predictionArrayNameScaled.append("KNN")
             predictionArrayTimeTookMsScaled.append(elapsedTimeMs)
-
+            """
         Benchmark.drawBenchmarkForMultipleValues('Non Scalé - Taux d\'erreur en fonction de l\'algo utilisé', 'Algo utilisé', 'Erreur moyenne', predictionArrayErrorRatio, predictionArrayName)
         Benchmark.drawBenchmarkForMultipleValues('Scalé - Taux d\'erreur en fonction de l\'algo utilisé', 'Algo utilisé', 'Erreur moyenne', predictionArrayErrorRatioScaled, predictionArrayNameScaled)
         Benchmark.drawBenchmarkForMultipleValues("Non Scalé - Temps pris par algorithme", "Algo utilisé", "Temps pris (ms)", predictionArrayTimeTookMs, predictionArrayName)
         Benchmark.drawBenchmarkForMultipleValues("Scalé - Temps pris par algorithme", "Algo utilisé", "Temps pris (ms)", predictionArrayTimeTookMsScaled, predictionArrayNameScaled)
+        """
+        #draw(predictionArrayErrorRatio, predictionArrayName, predictionArrayErrorRatioScaled, predictionArrayNameScaled, predictionArrayTimeTookMsScaled, predictionArrayTimeTookMs )
+        return self.Tab
 
-    def run(self):
-        print("KNN running")
 
 
 def test():
+    Tab = KNearestNeighbors().run()
+    print('####### SCORE KNN ####')
+    print('max : ',max(Tab))
+    print('min :',min(Tab))
+    print('AVG :',sum(Tab)/len(Tab))
+    print('#####################')
+def draw(predictionArrayErrorRatio, predictionArrayName, predictionArrayErrorRatioScaled, predictionArrayNameScaled, predictionArrayTimeTookMsScaled, predictionArrayTimeTookMs ):
+    Benchmark.drawBenchmarkForMultipleValues('Non Scalé - Taux d\'erreur en fonction de l\'algo utilisé', 'Algo utilisé', 'Erreur moyenne', predictionArrayErrorRatio, predictionArrayName)
+    Benchmark.drawBenchmarkForMultipleValues('Scalé - Taux d\'erreur en fonction de l\'algo utilisé', 'Algo utilisé', 'Erreur moyenne', predictionArrayErrorRatioScaled, predictionArrayNameScaled)
+    Benchmark.drawBenchmarkForMultipleValues("Non Scalé - Temps pris par algorithme", "Algo utilisé", "Temps pris (ms)", predictionArrayTimeTookMs, predictionArrayName)
+    Benchmark.drawBenchmarkForMultipleValues("Scalé - Temps pris par algorithme", "Algo utilisé", "Temps pris (ms)", predictionArrayTimeTookMsScaled, predictionArrayNameScaled)
+
+def somme(liste):
+    _somme = 0
+    for i in liste:
+        _somme = _somme + i
+    return _somme
+
+def moyenne(liste):
+    return somme(liste)/len(liste)
     
-    KNearestNeighbors().run()
+    
+    
+
+    

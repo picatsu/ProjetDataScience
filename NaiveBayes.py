@@ -23,7 +23,7 @@ class NaiveBayes:
         # Chargement initial des données (mails)
         csvValuesColumnNumber = 57
         # Depuis le csv des mails
-        csvFilePath = "../spambase/spambase.data";
+        csvFilePath = "spambase/spambase.data"
         mailDataset = pd.read_csv(csvFilePath, header=None)  # names=names,
         # Split des colonnes en deux : les valeurs (dataFieldsValues) et le label pour chaque mail (dataLabels)
         # permettant de savoir si c'est un spam (1) ou non

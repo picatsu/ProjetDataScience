@@ -23,16 +23,16 @@ import SupportVectorMachine as SVM
 KNN.test()
 
 """NaiveBayes"""
-print("############NaiveBayes############")
+#print("############NaiveBayes############")
 
 """Backpropagation = MLP pour Multilayer Perceptron"""
-print("############Backpropagation############")
+#print("############Backpropagation############")
 
 """LogisticRegression"""
-# LR.test()
+LR.test()
 
 """RandomForest"""
-#RF.test()
+RF.test()
 
 """Kernel SVM = Support Vector Machine"""
 #SVM.test()

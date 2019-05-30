@@ -16,6 +16,7 @@ def drawBenchmarkForSingleValue(y_pred, y_test):
     error.append(predictedRatio)
     error.append(predictedRatio)'''
 
+    print('ICI PREDICT RATIO')
     print(predictedRatio)
 
     plt.figure(figsize=(14, 6))
