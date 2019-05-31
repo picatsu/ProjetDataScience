@@ -19,30 +19,13 @@ class KNearestNeighbors:
         return 
         
     def run(self, colum):
-        iterationNumber = 20
+        iterationNumber =20
         print("KNN running")
         print("KNearestNeighbors initializing")
         # Chargement initial des données (mails)
         csvValuesColumnNumber = 57
         csvFilePath = "spambase/spambase.data"
         mailDataset = pd.read_csv(csvFilePath, header=None)  # names=names,
-        """
-        self.selected_words = [
-        "char_freq_$",
-        "char_freq_!", 
-        "word_freq_order", 
-        "word_freq_free", 
-        "word_freq_money",
-        "word_freq_receive",
-        "word_freq_000",
-        "word_freq_george",
-        "word_freq_650",
-        "word_freq_lab",
-        "word_freq_labs", 
-        "word_freq_edu",
-        "word_freq_conference", 
-        "word_freq_meeting"]
-        """
         mailDataset.drop(colum)  # Drop columns "Georges & 650" contextual false-positives
         # Split des colonnes en deux : les valeurs (dataFieldsValues) et le label pour chaque mail (dataLabels)
         # permettant de savoir si c'est un spam (1) ou non
@@ -168,7 +151,7 @@ class KNearestNeighbors:
 
 
 def test():
-    Tab = KNearestNeighbors().run([26, 27,28])
+    Tab = KNearestNeighbors().run([5,8,9,15,20,23,26,27])
     print('####### SCORE KNN ####')
     print('max : ',max(Tab))
     print('min :',min(Tab))
