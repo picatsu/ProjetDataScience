@@ -14,7 +14,7 @@ class SupportVectorMachine:
         return
         
     def run(self, colum):
-        iterationNumber = 2
+        iterationNumber = 200
         print("SupportVectorMachine initializing")
         # Chargement initial des données (mails)
         csvValuesColumnNumber = 57
@@ -170,7 +170,7 @@ def test2():
         
     print ( 'MAximum', maximum, 'liste : ', listefinal)
 def test():
-    Tab =SupportVectorMachine().run([5,8,9,15,20,23,26,27])
+    Tab =SupportVectorMachine().run([26,27])
     print('#### SCORE SVM  ####')
     print('max : ',max(Tab))
     print('min :',min(Tab))

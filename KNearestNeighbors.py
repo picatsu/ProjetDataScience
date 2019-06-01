@@ -19,7 +19,7 @@ class KNearestNeighbors:
         return 
         
     def run(self, colum):
-        iterationNumber =20
+        iterationNumber =200
         print("KNN running")
         print("KNearestNeighbors initializing")
         # Chargement initial des données (mails)
@@ -151,7 +151,7 @@ class KNearestNeighbors:
 
 
 def test():
-    Tab = KNearestNeighbors().run([5,8,9,15,20,23,26,27])
+    Tab = KNearestNeighbors().run([26,27])
     print('####### SCORE KNN ####')
     print('max : ',max(Tab))
     print('min :',min(Tab))
