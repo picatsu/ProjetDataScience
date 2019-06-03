@@ -118,7 +118,7 @@ def predictWith(algoName, X_train, X_test, y_train, y_test):
         print("predictWith  " + algoName)
         from sklearn.ensemble import RandomForestClassifier
 
-        classifier = RandomForestClassifier(n_estimators=100, max_depth=2, random_state=0)
+        classifier = RandomForestClassifier(n_estimators=100, n_jobs=5)#, max_depth=2, random_state=0)
         classifier.fit(X_train, y_train)
         # round(RF.score(X,y), 4)  <- retournera presque le même résultat que np.mean(y_predict != y_test)
         # (dans getPredictErrorRatioOf(..))
@@ -209,7 +209,7 @@ def doFullBenchmark():
     # X_test : valeurs pour le test
     # y_test : labels pour vérifier le test
 
-    iterationNumber = 2;
+    iterationNumber = 10;
 
     # Permet d'avoir des jeux de test identiques pour chaque itération
     a2_X_train = []
