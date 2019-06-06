@@ -6,13 +6,9 @@ Created on Fri Jun  7 00:11:42 2019
 """
 
 import numpy as np
-import matplotlib.pyplot as plt 
 from sklearn.model_selection import train_test_split 
 from sklearn.metrics import classification_report, confusion_matrix
 import pandas as pd
-import time
-import algo.MLP as mlp
-import algo.NaiveBayes as nb
 
 
 
@@ -34,19 +30,33 @@ def mainMoche() :
     
     X_train, X_test, y_train, y_test = train_test_split(dataFieldsValues, dataLabels, test_size=0.2, shuffle=True) # test_size = 1 - train_size
     
-    from sklearn.preprocessing import StandardScaler
-    from sklearn.ensemble import RandomForestClassifier
-
-    classifier = RandomForestClassifier(n_estimators=30, n_jobs=5)#, max_depth=2, random_state=0)
-    classifier.fit(X_train, y_train)
-    # round(RF.score(X,y), 4)  <- retournera presque le même résultat que np.mean(y_predict != y_test)
-    # (dans getPredictErrorRatioOf(..))
-    y_predict = classifier.predict(X_test)  # X_test_scaled
+    Tab = []
     
-    localPredictErrorRatio = np.mean(y_predict != y_test)
+    for iIteration in range(0, iterationNumber) :
+        
+        from sklearn.preprocessing import StandardScaler
+        from sklearn.ensemble import RandomForestClassifier
+        
+        classifier = RandomForestClassifier(n_estimators=30, n_jobs=5)#, max_depth=2, random_state=0)
+        classifier.fit(X_train, y_train)
+        # round(RF.score(X,y), 4)  <- retournera presque le même résultat que np.mean(y_predict != y_test)
+        # (dans getPredictErrorRatioOf(..))
+        y_predict = classifier.predict(X_test)  # X_test_scaled
+        
+        localPredictErrorRatio = np.mean(y_predict != y_test)
+        print(1 - localPredictErrorRatio);
+        Tab.append(1 - localPredictErrorRatio)
+        
+        
     
-    print(1 - localPredictErrorRatio);
+   # 
     
+    
+    print('#### SCORE SVM  ####')
+    print('max : ',max(Tab))
+    print('min :',min(Tab))
+    print('AVG :',sum(Tab)/len(Tab))
+    print('#####################') 
     
     
     
