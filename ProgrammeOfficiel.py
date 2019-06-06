@@ -37,7 +37,7 @@ def mainMoche() :
         from sklearn.preprocessing import StandardScaler
         from sklearn.ensemble import RandomForestClassifier
         
-        classifier = RandomForestClassifier(n_estimators=30, n_jobs=5)#, max_depth=2, random_state=0)
+        classifier = RandomForestClassifier(n_estimators=80, n_jobs=5)#, max_depth=2, random_state=0)
         classifier.fit(X_train, y_train)
         # round(RF.score(X,y), 4)  <- retournera presque le même résultat que np.mean(y_predict != y_test)
         # (dans getPredictErrorRatioOf(..))
@@ -47,12 +47,10 @@ def mainMoche() :
         print(1 - localPredictErrorRatio);
         Tab.append(1 - localPredictErrorRatio)
         
-        
-    
-   # 
     
     
-    print('#### SCORE SVM  ####')
+    
+    print('#### SCORE RandomForest optimisé  ####')
     print('max : ',max(Tab))
     print('min :',min(Tab))
     print('AVG :',sum(Tab)/len(Tab))
