@@ -86,9 +86,6 @@ def mainMoche() :
             Tab.append(1 - localPredictErrorRatio)
         
         
-        
-        
-        
     
     if (benchmark_wandrille) :
         print('#### SCORE RandomForest WANDRILLE  ####')
@@ -97,7 +94,7 @@ def mainMoche() :
         print('AVG :',sum(Tab_Wandrille)/len(Tab_Wandrille))
         print('#####################') 
     else :
-        print('#### SCORE RandomForest optimisé  ####')
+        print('#### SCORE RandomForest optimisé (test)  ####')
         print('max : ',max(Tab))
         print('min :',min(Tab))
         print('AVG :',sum(Tab)/len(Tab))
