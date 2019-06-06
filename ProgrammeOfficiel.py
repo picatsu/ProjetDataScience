@@ -18,7 +18,14 @@ def mainMoche() :
     # Depuis le csv des mails
     csvFilePath = "spambase/spambase.data";
     csvFilePath_WANDRILLE = "spambase/spambase.data" #_de_Wandrille
+    '''
+    Pour Félix : plus rien à faire ! C'est fonctionnel :)
     
+    TODO : changer le fichier csvFilePath_WANDRILLE de nom
+           et mettre benchmark_wandrille à True
+           
+           et le tour est joué !
+    '''
     
     
     benchmark_wandrille = True;
