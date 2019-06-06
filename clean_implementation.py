@@ -279,7 +279,7 @@ def doFullBenchmark():
     # X_test : valeurs pour le test
     # y_test : labels pour vérifier le test
 
-    iterationNumber = 20;
+    iterationNumber = 10;
 
     # Permet d'avoir des jeux de test identiques pour chaque itération
     a2_X_train = []
@@ -329,6 +329,10 @@ def doFullBenchmark():
         a2_X_train_scaled.append(X_train_scaled)
         a2_X_test_scaled.append(X_test_scaled)
         
+        
+        #a2_X_train_original.append(X_trainOriginial)
+        #a2_X_test_original.append(X_testOriginial)
+        
         scaler = StandardScaler()
         scaler.fit(X_trainOriginial)
         X_train_original_scaled = scaler.transform(X_trainOriginial)  
@@ -341,7 +345,7 @@ def doFullBenchmark():
     predictionArrayName = []
     predictionArrayTimeTookMs = []
     
-    algoName = "RandomForest"
+    algoName = "MLP"
     
     # getPredictErrorRatioOfAndAddToLists_withA2List("TSNE", a2_X_train, a2_X_test, a2_y_train, a2_y_test,
     # predictionArrayErrorRatio, predictionArrayName, predictionArrayTimeTookMs)
@@ -349,8 +353,8 @@ def doFullBenchmark():
     getPredictErrorRatioOfAndAddToLists_withA2List(algoName, "base", a2_X_train, a2_X_test, a2_y_train, a2_y_test, predictionArrayErrorRatio, predictionArrayName, predictionArrayTimeTookMs)
     getPredictErrorRatioOfAndAddToLists_withA2List(algoName, "scaled", a2_X_train_scaled, a2_X_test_scaled, a2_y_train, a2_y_test, predictionArrayErrorRatio, predictionArrayName, predictionArrayTimeTookMs)
     getPredictErrorRatioOfAndAddToLists_withA2List(algoName, "scaled drop", a2_X_train_original, a2_X_test_original, a2_y_train_original, a2_y_test_original, predictionArrayErrorRatio, predictionArrayName, predictionArrayTimeTookMs)
-    getPredictErrorRatioOfAndAddToLists_withA2List(algoName + " opti", "opti", a2_X_train_original, a2_X_test_original, a2_y_train_original, a2_y_test_original, predictionArrayErrorRatio, predictionArrayName, predictionArrayTimeTookMs)
-    getPredictErrorRatioOfAndAddToLists_withA2List(algoName + " opti2", "opti 2", a2_X_train_original, a2_X_test_original, a2_y_train_original, a2_y_test_original, predictionArrayErrorRatio, predictionArrayName, predictionArrayTimeTookMs)
+    #getPredictErrorRatioOfAndAddToLists_withA2List(algoName + " opti", "opti", a2_X_train_original, a2_X_test_original, a2_y_train_original, a2_y_test_original, predictionArrayErrorRatio, predictionArrayName, predictionArrayTimeTookMs)
+    #getPredictErrorRatioOfAndAddToLists_withA2List(algoName + " opti2", "opti 2", a2_X_train_original, a2_X_test_original, a2_y_train_original, a2_y_test_original, predictionArrayErrorRatio, predictionArrayName, predictionArrayTimeTookMs)
     
     
     '''getPredictErrorRatioOfAndAddToLists_withA2List("MLP", a2_X_train, a2_X_test, a2_y_train, a2_y_test, predictionArrayErrorRatio, predictionArrayName, predictionArrayTimeTookMs)
