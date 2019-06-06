@@ -9,7 +9,7 @@ import numpy as np
 from sklearn.model_selection import train_test_split 
 #from sklearn.metrics import classification_report, confusion_matrix
 import pandas as pd
-
+import time
 
 
 def mainMoche() :
@@ -28,7 +28,7 @@ def mainMoche() :
     '''
     
     
-    benchmark_wandrille = True;
+    benchmark_wandrille = False;
     
     
     
@@ -70,16 +70,22 @@ def mainMoche() :
         # (dans getPredictErrorRatioOf(..))
         
         
+        startTimeMs = int(time.time() * 1000)
+        
         if (benchmark_wandrille) :
             y_predict_Wandrille = classifier.predict(dataFieldsValues_WANDRILLE)  # X_test_scaled
             localPredictErrorRatio_Wandrille = np.mean(y_predict_Wandrille != dataLabels_WANDRILLE)
-            print("Wandrille : " + str(1 - localPredictErrorRatio_Wandrille));
+            elapsedTimeMs = int(time.time() * 1000) - startTimeMs
+            print("Wandrille : " + str(1 - localPredictErrorRatio_Wandrille) + "  en " + str(elapsedTimeMs) + " ms.");
             Tab_Wandrille.append(1 - localPredictErrorRatio_Wandrille)
         else :
             y_predict = classifier.predict(X_test)  # X_test_scaled
             localPredictErrorRatio = np.mean(y_predict != y_test)
-            print("localTest : " + str(1 - localPredictErrorRatio));
+            elapsedTimeMs = int(time.time() * 1000) - startTimeMs
+            print("localTest : " + str(1 - localPredictErrorRatio) + "  en " + str(elapsedTimeMs) + " ms.");
             Tab.append(1 - localPredictErrorRatio)
+        
+        
         
         
         

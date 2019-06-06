@@ -278,9 +278,9 @@ def doFullBenchmark():
     # y_train : labels d'entraînement (associés à chaque valeur)
     # X_test : valeurs pour le test
     # y_test : labels pour vérifier le test
-
+    
     iterationNumber = 10;
-
+    
     # Permet d'avoir des jeux de test identiques pour chaque itération
     a2_X_train = []
     a2_X_test = []
@@ -328,7 +328,6 @@ def doFullBenchmark():
         X_test_scaled = scaler.transform(X_test)
         a2_X_train_scaled.append(X_train_scaled)
         a2_X_test_scaled.append(X_test_scaled)
-        
         
         #a2_X_train_original.append(X_trainOriginial)
         #a2_X_test_original.append(X_testOriginial)
